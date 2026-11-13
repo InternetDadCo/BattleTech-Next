@@ -31,7 +31,7 @@ The initial 2.0.0A line represented the development cycle from April 2026 to Nov
 - **Direct3D 12 is available.** This is a course for future development: D3D12 offers no performance or visual benefit for players (yet). Start the game with `-force-d3d12` to switch. 
 - **Mods still work.** ModTek and Harmony mods run with no rebuild. A BattleTech Advanced career has been played through a contract, salvage, and a save and reload, but additional testing is required.
 - **Content is unchanged.** If we didn't have to change something to make it work in Unity 6 or with multiplayer, we didn't, other than bugfixes and optimizations.
-- **Paradox Online Services.** Paradox accounts and analytics work as in retail.
+- **Paradox Online Services.** Paradox accounts work as in retail. Some analysis telemetry (app launch, hardware info) is sent to Paradox in retail but some of it was being rejected. We kept what was being accepted and disabled what was being rejected.
 
 See the [CHANGELOG](CHANGELOG.md) for the full list.
 
@@ -39,10 +39,9 @@ See the [CHANGELOG](CHANGELOG.md) for the full list.
 
 ## Installing and Running BattleTech: Unofficial Community Update
 
-Releases are packaged into an installer which has several layers of validation:
+Releases are packaged into an installer which has several layers of validation (so you must be online for the install):
 
-- The installer validates itself against our server before running at all
-- The installer validates that you have the retail install (Steam only until someone wants to send us a GOG key)
+- The installer validates that you own Battletech (retail) through Steam's API and issues a BT-UCU key based on that validation. That is used to download and decrypt the update.
 - Running the installed game validates that you own it on Steam (and multiplayer requires separate copies -- you can run the game from a shared family library, but only one player in any session can use that copy)
 
 The downside to all this validation is that you end up with double the normal install size (the original retail install remains untouched, and then UCU installs in its own location). You can safely remove the original retail install after UCU is installed, but you'd just need it back again for UCU updates. There is no way around this unless Paradox wants to adopt us, and we're not holding our breath!
