@@ -2,7 +2,7 @@
 
 ## 2.0.0-1B
 
-What version **2.0.0-1B** of BattleTech: Unofficial Community Update (UCU), its first Beta build, changes on top of 2.0.0-10A.
+Changes in version **2.0.0-1B** of the BattleTech: Unofficial Community Update (UCU), its first Beta build, from the final Alpha, 2.0.0-10A (see below for the complete list of changes between retail and the Alpha line).
 
 - **Multiplayer text** goes through the game's localization, so it can be translated. English reads the same as before.
 - **Fallback shaders are logged.** A short while after each scene loads, `Player.log` names any object drawing with a missing
@@ -14,7 +14,7 @@ What version **2.0.0-1B** of BattleTech: Unofficial Community Update (UCU), its 
   version, 2.0.0, is in `VersionInfo.PortVersion`; the main menu and multiplayer use it. Saves from earlier port builds
   still load in the port.
 - **Crew conversations in co-op.** Guests now see the host's crew conversations and story cinematics, replayed on their
-  own screen at their own pace. A guest with the Decisions permission picks the answers. A guest busy elsewhere sees the
+  own screen at their own pace. A guest with the Decisions permission can pick replies (as can the host). A guest busy elsewhere sees the
   scene from the start once free, then returns to where it was. Each player skips a cinematic alone; crew chats show
   the line only.
 - **New crew in co-op.** When the host's story brings in a new crew member, guests now see them in the Argo's rooms
@@ -22,15 +22,14 @@ What version **2.0.0-1B** of BattleTech: Unofficial Community Update (UCU), its 
 - **Depth-of-field log warning.** Conversations no longer fill the log with an `R8_SRGB` warning every frame. The
   blur looks the same.
 - **Paradox analytics** are on again, as in retail, including retail's first-launch privacy notice. Paradox account
-  sign-in was never removed; it runs retail's own code, unchanged. Reports name the game as UCU and its version,
-  for example `UCU-2.0.0-1B`, so they can't be mistaken for retail's. Events earlier builds queued while analytics
-  were off are discarded, not sent.
-- **Title screen.** The version line reads, for example, "2.0.0-1B (Unofficial Community Update)". The version itself
+  sign-in runs retail's code. Reports name the game as UCU and its version,
+  for example `UCU-2.0.0-1B`, so they can't be mistaken for retail's.
+- **Title screen.** Added (Unofficial Community Update) to the version display. The version itself
   is unchanged.
 
 ## 2.0.0-10A
 
-What version **2.0.0-10A** of BattleTech UCU adds to and changes from retail *BATTLETECH* 1.9.1 (build 686R).
+What versions **2.0.0-1A** through **2.0.0-10A** of BattleTech UCU added and changed from retail *BATTLETECH* 1.9.1 (build 686R).
 
 ## New
 
@@ -289,4 +288,3 @@ These keep retail's behaviour where retail's code or data doesn't work as shippe
   realtime GI as retail's do instead of from light probes. Only maps without live probes get the mood's ambient probe as a fill.
   The proxies sit on their own layer, which no camera draws, so they stay off the loading screen and out of shadows.
 
-Where the port still falls short of retail without meaning to, see Known issues in [README.md](README.md#known-issues).
