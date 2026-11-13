@@ -1,0 +1,20 @@
+# Unlock server for BattleTech UCU v3 packages (../docs/keyserver-design.md, README.md here).
+# No secrets in this file: MASTER_SECRET is set with `npx wrangler secret put MASTER_SECRET`.
+name = "btucu-unlock"
+main = "src/worker.js"
+compatibility_date = "2026-10-01"
+# The Worker answers at its workers.dev address only; no per-version preview addresses.
+workers_dev = true
+preview_urls = false
+
+[[d1_databases]]
+binding = "DB"
+database_name = "btucu-unlock"
+# Replace with the id `npx wrangler d1 create btucu-unlock` prints.
+database_id = "00000000-0000-0000-0000-000000000000"
+
+# Per-IP limit on unlock requests, held in Cloudflare's memory; nothing is stored.
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1001"
+simple = { limit = 10, period = 60 }

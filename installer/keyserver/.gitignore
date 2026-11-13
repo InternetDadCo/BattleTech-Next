@@ -1,0 +1,6 @@
+node_modules/
+.wrangler/
+.dev.vars
+# The root .gitignore ignores package files; the Worker needs its pinned wrangler.
+!package.json
+!package-lock.json

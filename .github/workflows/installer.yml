@@ -1,0 +1,47 @@
+# Builds the installer and release tools from installer/ and attests them, so anyone can check that a release's
+# BattleTechUCUSetup.exe came from this repository:
+#   gh attestation verify BattleTechUCUSetup.exe -R InternetDadCo/BattleTech-UCU
+# The build is reproducible (installer/build.ps1): the same commit gives the same bytes on any Windows machine with the
+# pinned .NET SDK, so a maintainer's local build of a tagged commit carries this run's attestation too.
+# Source of truth: tools/release-gate/ci/installer.yml in the development repository, copied here by publish-source.ps1.
+name: Installer
+
+on:
+  push:
+    branches: [main]
+    paths: ['installer/**', '.github/workflows/installer.yml']
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  build:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.403'   # keep equal to $sdkVersion in installer/build.ps1
+      - name: Build
+        shell: powershell
+        run: |
+          & .\installer\build.ps1
+          if (-not $?) { exit 1 }
+          Get-ChildItem installer\bin\*.exe | ForEach-Object { '{0}  {1}' -f (Get-FileHash $_.FullName).Hash.ToLower(), $_.Name } | Tee-Object installer\bin\SHA256SUMS.txt
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            installer/bin/BattleTechUCUSetup.exe
+            installer/bin/ReleaseManager.exe
+            installer/bin/ReleasePack.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installer-${{ github.sha }}
+          path: |
+            installer/bin/*.exe
+            installer/bin/SHA256SUMS.txt
+            installer/verify.ps1
