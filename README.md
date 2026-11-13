@@ -123,6 +123,10 @@ Our priorities:
 - **Career and campaign co-op.** Since this is the flagship feature, we'd like to reduce any further barriers to people playing Battletech together!
 - **Direct3D 12.** Still very much a 'maybe' but we'll be exploring the possibilities and ramifications.
 
+## On the Installer and Verifying Source
+
+We received some excellent feedback concerning our use of an installer whose source cannot be verified. We are incorporating this feedback and intend to release as much as we can in short order. It's a bit of a highwire act because we'd like our changes to be audit-able, but the thing we're changing is in some cases the HBS retail product and that is not ours to release (which is why the installer just copies retail content from your retail install - we're not distributing it.) Even so, as a public project, this effort is brand new and this is on the top of our list for Things That Need to Be Better, so give us a little bit to see what we can do!
+
 ## Credits
 
 All of the original assets upon which this project is based come from, and belong to Harebrained Schemes and Paradox Interactive.
