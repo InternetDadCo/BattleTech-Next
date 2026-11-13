@@ -177,9 +177,9 @@ Elsewhere:
 
 ## Changed from retail
 
-- **Services.** Analytics, Paradox, Sift, AWS and ServiceStack callers are off. `S3Manager` is an offline shim with the same
+- **Services.** Sift, AWS and ServiceStack callers are off, and so were analytics until 2.0.0-1B turned them back on. Paradox account sign-in is retail's. `S3Manager` is an offline shim with the same
   API, and the four AWSSDK DLLs are gone. Changing the callsign saves it locally instead of waiting on ComStar.
-- **Version.** Retail 1.9.1 saves read as older, so an Ironman save is backed up on load. New saves carry 2.0.0-10A. Multiplayer no
+- **Version.** Up to 2.0.0-10A (2.0.0-1B reports retail's 1.9.1 again; see above), retail 1.9.1 saves read as older, so an Ironman save is backed up on load. New saves carry 2.0.0-10A. Multiplayer no
   longer matches retail clients. The mod-loader cache re-keys once. The unused `VersionInfo.CURRENT_VERSION_NUMBER` still says 1.9.1.
 - **Graphics API.** D3D11 is the default, as in retail, and D3D12 is supported, modded and unmodded. Graphics jobs are off.
 - **Third-party code.** Newtonsoft 13, current DOTween, the Steamworks.NET package and SVG Importer 2.0. InControl, Lidgren,
