@@ -119,7 +119,7 @@ Our priorities:
 
 ## Credits
 
-All of the real assets in this project come from, and belong to Harebrained Schemes and Paradox Interactive.
+All of the original assets upon which this project is based come from, and belong to Harebrained Schemes and Paradox Interactive.
 
 Battletech is a registered trademark of Microsoft Gaming and the Topps Company (licensed to Catalyst Game Labs). 
 
