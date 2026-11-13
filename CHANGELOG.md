@@ -21,11 +21,10 @@ Changes in version **2.0.0-1B** of the BattleTech: Unofficial Community Update (
   too, and crew conversations no longer point the camera at someone who isn't there.
 - **Depth-of-field log warning.** Conversations no longer fill the log with an `R8_SRGB` warning every frame. The
   blur looks the same.
-- **Paradox analytics** are on again, as in retail, including retail's first-launch privacy notice. Paradox account
-  sign-in runs retail's code. Reports name the game as UCU and its version,
+- **Paradox analytics** reports name the game as UCU and its version,
   for example `UCU-2.0.0-1B`, so they can't be mistaken for retail's.
-- **Title screen.** Added (Unofficial Community Update) to the version display. The version itself
-  is unchanged.
+  The game sends only the reports Paradox's server accepts, the session start and the hardware summary; Paradox was rejecting everything else in the retail build, so we just don't send it.
+- **Title screen.** Added (Unofficial Community Update) to the version display.
 
 ## 2.0.0-10A
 
