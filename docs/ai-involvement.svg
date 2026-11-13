@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 190" width="760" height="190" role="img" aria-labelledby="t d">
+  <title id="t">AI involvement in this project</title>
+  <desc id="d">AI was involved in Code only. Art assets, creative writing, music and audio, and video are not marked: they are the original work of Harebrained Schemes and its contributors.</desc>
+  <rect x="0.5" y="0.5" width="759" height="189" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="24" y="34" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#1f2328">AI involvement</text>
+
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif" text-anchor="middle">
+    <!-- Art Assets -->
+    <rect x="24" y="54" width="130" height="112" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <circle cx="89" cy="94" r="17" fill="none" stroke="#8c959f" stroke-width="2.5"/>
+    <text x="89" y="132" font-size="14" font-weight="600" fill="#1f2328">Art Assets</text>
+    <text x="89" y="152" font-size="12" fill="#656d76">not involved</text>
+    <!-- Creative Writing -->
+    <rect x="166" y="54" width="130" height="112" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <circle cx="231" cy="94" r="17" fill="none" stroke="#8c959f" stroke-width="2.5"/>
+    <text x="231" y="132" font-size="14" font-weight="600" fill="#1f2328">Creative Writing</text>
+    <text x="231" y="152" font-size="12" fill="#656d76">not involved</text>
+    <!-- Music and Audio -->
+    <rect x="308" y="54" width="130" height="112" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <circle cx="373" cy="94" r="17" fill="none" stroke="#8c959f" stroke-width="2.5"/>
+    <text x="373" y="132" font-size="14" font-weight="600" fill="#1f2328">Music &amp; Audio</text>
+    <text x="373" y="152" font-size="12" fill="#656d76">not involved</text>
+    <!-- Video -->
+    <rect x="450" y="54" width="130" height="112" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+    <circle cx="515" cy="94" r="17" fill="none" stroke="#8c959f" stroke-width="2.5"/>
+    <text x="515" y="132" font-size="14" font-weight="600" fill="#1f2328">Video</text>
+    <text x="515" y="152" font-size="12" fill="#656d76">not involved</text>
+    <!-- Code (marked) -->
+    <rect x="606" y="50" width="130" height="120" rx="8" fill="#ddf4ff" stroke="#0969da" stroke-width="2.5"/>
+    <circle cx="671" cy="94" r="17" fill="#0969da"/>
+    <path d="M662 94l6 6 11-12" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="671" y="132" font-size="14" font-weight="700" fill="#0550ae">Code</text>
+    <text x="671" y="152" font-size="12" font-weight="600" fill="#0550ae">AI involved</text>
+  </g>
+</svg>
