@@ -1,0 +1,67 @@
+name: Bug report
+description: Something in BattleTech UCU doesn't work, or doesn't look or play like the 2018 game.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing. Short answers are fine; leave out anything you don't know.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The version line on the title screen, bottom of the main menu.
+      placeholder: 2.0.0-1B (Unofficial Community Update)
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: How were you playing?
+      options:
+        - Single-player
+        - Co-op, as the host
+        - Co-op, as a guest
+    validations:
+      required: true
+  - type: input
+    id: players
+    attributes:
+      label: Players in the session (co-op only)
+      placeholder: "3"
+  - type: input
+    id: mods
+    attributes:
+      label: Mods
+      description: None, or which ones (BattleTech Advanced, RogueTech, ...).
+      placeholder: None
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to make it happen
+      placeholder: |
+        1. Start a career
+        2. ...
+  - type: textarea
+    id: visual
+    attributes:
+      label: Looks wrong? (visual issues only)
+      description: |
+        The map, the weather and time of day, and a screenshot. A retail screenshot of the same spot in the same
+        weather helps most. Drag the images into this box.
+  - type: textarea
+    id: log
+    attributes:
+      label: Player.log
+      description: |
+        Close the game, then drag `Player.log` into this box. It is in
+        `%USERPROFILE%\AppData\LocalLow\DefaultCompany\BattleTechU6\` (paste that into Explorer's address bar).
+        The game overwrites it on the next start, so attach it before you play again.
