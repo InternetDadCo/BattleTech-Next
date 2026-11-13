@@ -23,6 +23,12 @@ For now, use the Issues link on this repository. We don't have a discord and BT 
 
 The initial 2.0.0A line represented the development cycle from April 2026 to November 2026. Beta 1 was released publicly on November 13, 2026.
 
+## Linux and MacOS
+
+Beta 1 is Windows-only. We are aiming for Linux support (Proton) for Beta 2 - this is currently under investigation. Native Linux is more work but theoretically possible.
+
+MacOS is harder as I have no Mac hardware available for it. This will depend on somebody in the community who does coming on board, or my getting access to a gaming Mac, which isn't trivial.
+
 ## What's different from the 2018 retail game (and what isn't)
 
 - **Campaign/Career multiplayer.** Retail multiplayer is skirmish-only and relied on multiplayer servers long since sunset (without mods). In 2.0, career and campaign mode support the host inviting up to three other players and assigning permissions for each guest (mech bay, store, hiring, barracks, etc). Everyone sees the Argo, and each player controls the 'Mechs assigned to them. On a mission with fewer 'Mechs than players, anyone not assigned to a 'mech is an observer.
