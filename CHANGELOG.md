@@ -1,5 +1,57 @@
 # Changelog
 
+## 2.1.0-2B
+
+Changes in version **2.1.0-2B** of the BattleTech: Unofficial Community Update (UCU), its second Beta build, on top of 2.0.0-1B.
+
+- **Mod support is built in.** The installer has a *Mod support* box, ticked by default, that puts the ModTek loader
+  beside `BattleTech.exe`. Put ModTek and your mods in a `Mods` folder there and they load; with no `Mods` folder the
+  game starts as before. The loader's files also come in the install's `ModSupport` folder, with Doorstop's license.
+- **BattleTech Advanced.** BTA's own installer needs retail BattleTech, so `Link BTA.cmd`, in the install's `ModSupport` folder, copies the mods and saves from
+  a BTA install you already have.
+- **Memory in long sessions.** We've taken a first pass at the famous 'memory leak'. One cause was that, when a battle ended, the game kept that whole battle in memory,
+  including its map's terrain and encounter grids, because a few shared objects (lance and spawn-point references,
+  and the battle's dialogue and conversations) still pointed back at it. Each different contract you played added
+  about 80 MB that was never released, so a long session kept growing. The battle is now released when it ends. In
+  our tests, memory kept per contract fell from about 100 MB to about 27 MB, and seeded test battles play out exactly
+  as before. A separate, gradual increase in memory usage shows up on both the 2018 game and UCU; we are
+  still looking into it.
+- **Faster star map filters.** On the Navigation screen, picking a biome, store or difficulty filter highlights the
+  matching star systems. To find each system's star on the map, the retail game searched the whole map from the start,
+  once for every system, and repeated that 5 to 13 times per click. The work grew with the square of the map's size:
+  barely noticeable on the stock map's 219 systems, but on a modded map the size of BattleTech Advanced's (about 3,300
+  systems) each pass took about 175 ms, so every filter click froze the screen for one to two seconds. The game now
+  keeps an index from each system to its star, so a lookup is immediate. On the stock map a filter change went from
+  8-41 ms to 3-27 ms; the rest is drawing the highlights, which is unchanged.
+- **Saving could stop for a whole session.** Now and then, a save never finished: the save icon stayed up and every
+  later save, autosaves included, was quietly skipped until you quit the game. Earlier saves were safe. The game
+  writes saves to Steam Cloud in the background, and Steam's reply could arrive before the game was ready for it and be
+  lost; the game then waited for it forever. The game is now ready for each reply before it asks Steam. UCU 2.0.0-1B
+  has the same problem.
+- **A new career keeps its company name.** In the 2018 game, a new Career's first save could be written before the
+  company got its name and crest, so continuing from that save brought back the default "Mason's Marauders" and the
+  default crest. The first save now holds your "{callsign}'s Marauders" with your career's crest and colours. A career
+  that has already reloaded as "Mason's Marauders" keeps that name, because the fix only changes new career starts; you
+  can rename the company and change its crest in the Captain's Quarters, as in the 2018 game (in co-op, only the host
+  can).
+- **Save backup.** BATTLETECH and UCU share one Steam cloud folder for saves and settings. After it installs or
+  updates, the installer copies that folder once for each Steam account to `Documents\BattleTech UCU save backup`, with
+  a README on putting it back. Steam's folder is only read.
+- **Co-op join refused over a version difference.** The message now names both releases: "Game version mismatch:
+  host <version>, client <version>. Both players need the same version." Two builds of the same version no
+  longer join each other. The host sees a PLAYER COULDN'T JOIN notice in the Multiplayer panel, or a line in the
+  Argo's activity feed while the panel is closed.
+- **Crew in co-op story scenes.** When a guest replays one of the host's crew conversations, the Argo's rooms show
+  the crew the host had at that moment, not crew from a later point in the story.
+- **Direct Address takes IP addresses.** In Join Career, the Direct Address box dropped "." and ":", so a typed IP
+  address or port never reached the host; only a host name worked. It now takes an address, with or without :port.
+  (Also in 2.0.0-1B.)
+- **Leaving an Ironman host.** A guest in an Ironman host's career can leave or quit from Game Options; before, both
+  buttons stayed greyed outside combat.
+- **Co-op desyncs are logged.** When the players' battles drift apart, the host's `Player.log` names the first unit
+  whose state differs and the round it happened in. Include it when you report a co-op battle going wrong. The check
+  never changes play.
+
 ## 2.0.0-1B
 
 Changes in version **2.0.0-1B** of the BattleTech: Unofficial Community Update (UCU), its first Beta build, from the final Alpha, 2.0.0-10A (see below for the complete list of changes between retail and the Alpha line).
@@ -124,6 +176,7 @@ Each of the below optimizations passed a seeded equality check against the unpat
 | No camera scan while no camera exists | Camera scan in Deploy 7.8 to 0.02 s |
 | Loads drop vsync, the frame rate target and low background priority, then restore them | Modded BTA career: load to the Argo 50.1 to 36.0 s, in-game reload 38.4 to 25.8 s, measured with the display unattended |
 | Shader requests open at the first scene and load async; `VFX/Alpha` read once | Boot 9 s faster, combat load 3.6 s faster |
+| Star map renderer lookup uses an index (2.1.0-2B; the same renderer for every system, checked on the live map) | One filter pass at 3,300 systems 175 to 0.1 ms; a biome or store change makes 5 to 13 passes |
 
 Together, the save decode, tag lookup and camera scan changes take a modded save from 79.8 to 62.6 s and an in-game reload
 from 55.4 to 45.8 s.

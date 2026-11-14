@@ -2,24 +2,28 @@
 
 # BattleTech: Unofficial Community Update (UCU)
 
-A (lowercase h) harebrained scheme to port (uppercase) Harebrained Schemes' [*BATTLETECH*](https://www.paradoxinteractive.com/games/battletech) (2018, Unity 5) and all DLC to Unity 6. It adds campaign/career co-op, faster loading and several bugfixes. Retail release (Steam only at the moment) is required to run it.
+A (lowercase h) harebrained scheme to port (uppercase) Harebrained Schemes' [*BATTLETECH*](https://www.paradoxinteractive.com/games/battletech) (2018; launched on Unity 5.6, on Unity 2018.4 since 2019) and all DLC to Unity 6. It adds campaign/career co-op, faster loading and several bugfixes. Retail release (Steam only at the moment) is required to run it.
 
 ## Disclaimers
 
 This project is a personal, non-commercial effort and is not affiliated with Paradox Interactive or Harebrained Schemes. It operates with permission from Paradox Interactive under their User Generated Content policy, but is not endorsed or supported by Paradox and they are not responsible for modified installs of their product.
 
+**This is a beta, work-in-progress release.** It is maintained by volunteers. Please be patient.
+
 ## Support
 
-For now, use the Issues link on this repository. We don't have a discord and BT already has a bunch of them and doesn't need another, so if you're an admin on one of those BT discords and don't mind adopting us, we'll hang out and provide support there.
+**BUGS**: Use the Issues link on this repository.
+
+**FEEDBACK/DISCUSSION**: We have a discord at https://discord.gg/tbmrmQzpvd -- please be patient!
 
 ## Current Release
 
-**Version 2.0.0-1B**. Version definitions:
+**Version 2.1.0-2B**. Version definitions have to stick to the numbering system retail used, which is a little complicated:
 
 - **2**: Major release: 2.0 is defined as Unity 6-built feature parity with retail and its DLC along with bugfixes, optimizations, and the multiplayer changes below.
-- **0**: Minor release with new features or requirements, non-breaking changes backwards compatible within the major release line.
+- **1**: Minor release with new features or requirements, non-breaking changes backwards compatible within the major release line.
 - **0**: Patchlevel: Bugfixes or minor corrections to the previous minor release.
-- **1B**: Build number and (A)lpha/(B)eta/(R)elease indicator. 
+- **2B**: Build number and (A)lpha/(B)eta/(R)elease indicator. 
 
 The initial 2.0.0A line represented the development cycle from April 2026 to November 2026. Beta 1 was released publicly on November 13, 2026.
 
@@ -27,7 +31,7 @@ The initial 2.0.0A line represented the development cycle from April 2026 to Nov
 
 Beta 1 is Windows-only. We are aiming for Linux support (Proton) for Beta 2 - this is currently under investigation. Native Linux is more work but theoretically possible.
 
-MacOS is harder as I have no Mac hardware available for it. This will depend on somebody in the community who does coming on board, or my getting access to a gaming Mac, which isn't trivial.
+MacOS is harder as I have no Mac hardware available for it. This will depend on somebody in the community who does coming on board, or my getting access to a gaming Mac.
 
 ## What's different from the 2018 retail game (and what isn't)
 
@@ -54,6 +58,24 @@ The downside to all this validation is that you end up with double the normal in
 
 Updates to BT-UCU will update the installed folder in place. To uninstall, simply delete the folder. 
 
+## Playing BattleTech Advanced (BTA) on UCU
+
+From 2.1.0-2B, UCU can run mods through ModTek, including the BattleTech Advanced pack. BTA's own installer needs retail BATTLETECH 1.9.1 and won't install onto UCU, so you install BTA on retail as usual and then copy it across with Link BTA.
+
+1. **Install BTA on your retail game** the way its authors describe, and start it once.
+2. **Install UCU with mod support on.** The installer has a *Mod support* box under "Install to", ticked by default. It puts the mod loader beside `BattleTech.exe`; without a `Mods` folder, UCU starts exactly as it does unmodded. Start UCU once.
+3. **Run Link BTA.** Open the `ModSupport` folder inside your UCU install and double-click `Link BTA.cmd`. It finds both installs in your Steam libraries and asks about any it can't find (or drag your BTA folder onto it). It copies BTA's `Mods` folder (plus `Mods_sfx` and `Music`) and your BTA saves into UCU. Your BTA install is only read. UCU's drive needs about 20 GB free for this.
+4. **Start UCU as usual.** The first start is slow while ModTek builds its cache.
+
+Good to know:
+
+- **After a BTA update**, run Link BTA again. UCU's `Mods` folder is re-synced to match BTA's, so add mods to BTA, not to UCU's copy.
+- **Saves:** a BTA career carries over. On a re-run, a save you made in UCU is kept, not replaced by an older BTA one. To skip saves, run `Link BTA.cmd -NoSaves`.
+- **Leave a mod out:** `Link BTA.cmd -Skip ModName`.
+- **Back to unmodded UCU:** `Link BTA.cmd -Unlink` removes the copied mods. Your saves stay.
+- **Mods didn't load?** Open `BattleTechPortBootstrap.log` beside `BattleTech.exe` and attach it to your bug report with `Player.log`. A good run ends with `done|retargeted=5`.
+- Link BTA won't run while UCU is open, if the drive is too full, or if it finds a `Mods` folder it didn't make. It writes nothing until those checks pass.
+
 ## Who I am, and why this project
 
 This project began as a thought experiment of 'I wonder whether this is possible' and turned into a full-blown update of the game to Unity 6.
@@ -63,6 +85,8 @@ I'm InternetDadCo, the founder and principal architect at a software company tha
 At the same time, my son was getting into the 2018 Battletech game, and he wanted to know why we couldn't play the campaign together, since multiplayer was only supported in skirmish mode. I knew very little about Unity -- the little game development experience I had came from MUSHes in the early 2000s -- but I thought it would be a fun exercise to dig into the retail release and see what it would take to give Harebrained's fantastic 2018 game a little 2026 update, since the barrier to doing so these days is a lot lower than it was a year ago.
 
 ### A note on AI
+
+The below is a brief statement about AI usage in this project. For more detail, see our [Note on AI](NOTE-ON-AI.md) and if you have specific questions, we will address them there.
 
 ![AI involvement: Code only. Art assets, creative writing, music and audio, and video are not marked.](docs/ai-involvement.svg)
 
@@ -93,6 +117,7 @@ Places where the port means to match retail but doesn't quite yet. Deliberate ch
 - **Martian maps** look less red and less saturated than retail's, and their rocks show more contrast. This was measured at different times of day and isn't confirmed yet.
 - **Most maps** haven't been compared with retail side by side under the same weather, and decals have been measured only on Central Mountain and Still Valley.
 - **Portraits** read slightly darker than retail, mostly on the shaded side of the face, and one preset's hair tips look cyan.
+- **Linux and Steam Deck (Proton):** In 2.1.0-2B, the main menu's animated background shows colour bars (vertical stripes) instead of the video, because Proton can't play that video format. The menu works on top of it, and the opening cinematic and story cutscenes use a different format that plays. The small video screens on some Urban Warfare city maps will probably show colour bars too. Proton has only been tested as far as the main menu, on one Linux PC and not on a Steam Deck, and the game needs a working sound system (PulseAudio or PipeWire, which desktops and SteamOS have) or it closes at start-up. The videos are already converted to a format Proton plays; that fix comes in 2.1.1-2B.
 
 ## Visuals and lighting
 
