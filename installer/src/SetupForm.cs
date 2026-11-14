@@ -54,6 +54,7 @@ namespace ReleaseGate
         readonly Label _codeCaption = new Label { Text = "Access code (only if you were given one; without it, Steam confirms your copy)", AutoSize = true, Margin = new Padding(3, 0, 3, 3) };
         readonly Label _codeNote = Note("CodeNote");
         readonly Label _destNote = Note("DestNote");
+        readonly CheckBox _mods = new CheckBox { Name = "ModSupport", Text = "Mod support: load ModTek mods from the Mods folder", AutoSize = true, Checked = true, Margin = new Padding(3, 0, 3, 8) };
         readonly ProgressBar _bar = new ProgressBar { Name = "Progress", Dock = DockStyle.Fill, Maximum = 1000 };
         readonly Label _status = Note("Status");
         readonly Button _go = new Button { Name = "Install", Text = "Install", AutoSize = true, Enabled = false, MinimumSize = new Size(110, 0) };
@@ -131,6 +132,8 @@ namespace ReleaseGate
                 t.SetColumnSpan(c, 2);
             }
             AddRow(t, "Install to", _dest, _browseDest, _destNote);
+            t.Controls.Add(_mods);
+            t.SetColumnSpan(_mods, 2);
             t.Controls.Add(_bar);
             t.SetColumnSpan(_bar, 2);
             t.Controls.Add(_status);
@@ -150,7 +153,7 @@ namespace ReleaseGate
             _retail.TextChanged += (s, e) => QueueCheck();
             _code.TextChanged += (s, e) => QueueCheck();
             // Only typing (box focused) or Browse counts as the player's choice: Wine's WinForms raises TextChanged on its own.
-            _dest.TextChanged += (s, e) => { if (!_settingDest && _dest.Focused) _destEdited = true; ShowDest(); ShowVerify(); };
+            _dest.TextChanged += (s, e) => { if (!_settingDest && _dest.Focused) _destEdited = true; ShowDest(); ShowVerify(); _mods.Checked = Installer.ModsWanted(_dest.Text.Trim().Trim('"')); };
             _verify.Click += (s, e) => StartVerify();
             _settle.Tick += (s, e) => { _settle.Stop(); RunCheck(); };
             _tick.Tick += (s, e) => ShowProgress();
@@ -432,6 +435,7 @@ namespace ReleaseGate
             InstallProgress progress = _progress;
             CancellationToken token = _stop.Token;
             RemotePackage remote = Installer.Remote;
+            bool mods = _mods.Checked;
             _phase = remote != null ? "Downloading" : "Installing";
             _tick.Start();
             string message = null;
@@ -444,7 +448,16 @@ namespace ReleaseGate
                     _phase = "Installing";
                     Interlocked.Exchange(ref progress.Done, 0);
                 }
-                return Installer.Install(check, dest, progress, token, out message);
+                InstallResult r = Installer.Install(check, dest, progress, token, out message);
+                if (r == InstallResult.Installed)
+                {
+                    string m = Installer.ApplyMods(dest, mods);
+                    if (m != null) message += " " + m;
+                    _phase = "Backing up saves";
+                    string b = SaveBackup.Run();
+                    if (b != null) message += " " + b;
+                }
+                return r;
             }).ContinueWith(t =>
             {
                 _tick.Stop();
@@ -475,7 +488,7 @@ namespace ReleaseGate
 
         void SetInputs(bool on)
         {
-            _retail.Enabled = _code.Enabled = _dest.Enabled = _browseRetail.Enabled = _browseDest.Enabled = _go.Enabled = _updates.Enabled = _verify.Enabled = on;
+            _retail.Enabled = _code.Enabled = _dest.Enabled = _browseRetail.Enabled = _browseDest.Enabled = _go.Enabled = _updates.Enabled = _verify.Enabled = _mods.Enabled = on;
         }
 
         /// <summary>Verify install shows when the destination holds a public manifest this installer left there.</summary>

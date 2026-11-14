@@ -503,6 +503,50 @@ namespace ReleaseGate
             }
         }
 
+        // Mod support (tools/mod-bootstrap/README.md): a release ships ModSupport\ inert, because Doorstop only reads files beside
+        // the exe. Copying these three there turns it on. They aren't in the install record, so an update never reverts them.
+        static readonly string[] ModLoaderFiles = { "winhttp.dll", "BattleTechPortBootstrap.dll", "doorstop_config.ini" };
+        public const string ModsOffName = ".ucu-mods-off";
+
+        /// <summary>The install's last choice: on unless the player turned it off. A new install starts on.</summary>
+        public static bool ModsWanted(string dest)
+        {
+            try { return !File.Exists(Path.Combine(dest, ModsOffName)); }
+            catch (Exception e) when (e is ArgumentException || e is NotSupportedException || e is IOException) { return true; }
+        }
+
+        /// <summary>
+        /// Turns mod support on or off after an install. On copies the loader beside the exe, replacing any other copy (BTA's
+        /// installer leaves ModTek's Doorstop there, which crashes on D3D12). Off removes only files identical to ModSupport's,
+        /// and remembers the choice. Null when the release has no ModSupport folder.
+        /// </summary>
+        public static string ApplyMods(string dest, bool on)
+        {
+            string src = Path.Combine(dest, "ModSupport");
+            if (!ModLoaderFiles.All(f => File.Exists(Path.Combine(src, f)))) return null;
+            string off = Path.Combine(dest, ModsOffName);
+            try
+            {
+                if (on)
+                {
+                    foreach (string f in ModLoaderFiles) File.Copy(Path.Combine(src, f), Path.Combine(dest, f), true);
+                    if (File.Exists(off)) File.Delete(off);
+                    return "Mod support is on: ModTek mods in the Mods folder load when the game starts.";
+                }
+                foreach (string f in ModLoaderFiles)
+                {
+                    string target = Path.Combine(dest, f);
+                    if (File.Exists(target) && File.ReadAllBytes(target).SequenceEqual(File.ReadAllBytes(Path.Combine(src, f)))) File.Delete(target);
+                }
+                File.WriteAllText(off, "Mod support was turned off in the installer. Run the installer with it ticked to turn it on.\r\n");
+                return "Mod support is off.";
+            }
+            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException)
+            {
+                return "Mod support couldn't be changed: " + e.Message;
+            }
+        }
+
         /// <summary>Stops after the files in progress when cancelled. Finished files stay, and a later run skips them.</summary>
         public static InstallResult Install(RetailCheck c, string dest, InstallProgress progress, CancellationToken stop, out string message)
         {

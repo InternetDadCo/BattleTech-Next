@@ -98,7 +98,7 @@ namespace ReleaseGate
     {
         // Loose files and folders a release player has beside BattleTech.exe. Anything else that ships gets a warning.
         static readonly string[] KnownTop = { "BattleTech.exe", "UnityPlayer.dll", "UnityCrashHandler64.exe", "steam_appid.txt", "dstorage.dll",
-            "dstoragecore.dll", "D3D12", "MonoBleedingEdge", "BattleTech_Data" };
+            "dstoragecore.dll", "D3D12", "MonoBleedingEdge", "BattleTech_Data", "ModSupport" };
 
         public static PlayerInfo Player(string dir)
         {

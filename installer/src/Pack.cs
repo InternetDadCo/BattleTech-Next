@@ -138,6 +138,9 @@ namespace ReleaseGate
         public static bool Ships(string rel)
         {
             rel = rel.Replace('\\', '/');
+            // ModSupport/ holds the mod loader's files, inert there (Doorstop only reads files beside the exe). The names below are
+            // skipped at the top level, where a development player keeps its probe loader, but ship inside this folder.
+            if (rel.StartsWith("ModSupport/", StringComparison.OrdinalIgnoreCase)) return true;
             if (SkipDirs.Any(d => rel.StartsWith(d + "/", StringComparison.OrdinalIgnoreCase))) return false;
             return !SkipFiles.Contains(Path.GetFileName(rel), StringComparer.OrdinalIgnoreCase);
         }

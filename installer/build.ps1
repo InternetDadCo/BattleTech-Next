@@ -19,7 +19,7 @@ $refs = 'mscorlib', 'System', 'System.Core', 'System.Drawing', 'System.Windows.F
 
 & dotnet $csc @common -target:exe "-out:$bin\ReleasePack.exe" -define:PACK @refs "$src\AssemblyInfo.cs" "$src\GateCore.cs" "$src\PublicManifest.cs" "$src\Pack.cs"
 if ($LASTEXITCODE -ne 0) { throw 'csc failed for ReleasePack' }
-& dotnet $csc @common -target:winexe "-win32manifest:$src\app.manifest" "-resource:$src\banner.jpg,banner.jpg" "-out:$bin\BattleTechUCUSetup.exe" -define:SETUP @refs "-r:$fx\System.Web.Extensions.dll" "$src\AssemblyInfo.cs" "$src\GateCore.cs" "$src\PublicManifest.cs" "$src\Volumes.cs" "$src\Remote.cs" "$src\Unlock.cs" "$src\SteamTicket.cs" "$src\Installer.cs" "$src\SetupForm.cs" "$src\Setup.cs"
+& dotnet $csc @common -target:winexe "-win32manifest:$src\app.manifest" "-resource:$src\banner.jpg,banner.jpg" "-out:$bin\BattleTechUCUSetup.exe" -define:SETUP @refs "-r:$fx\System.Web.Extensions.dll" "$src\AssemblyInfo.cs" "$src\GateCore.cs" "$src\PublicManifest.cs" "$src\Volumes.cs" "$src\Remote.cs" "$src\Unlock.cs" "$src\SteamTicket.cs" "$src\Installer.cs" "$src\SaveBackup.cs" "$src\SetupForm.cs" "$src\Setup.cs"
 if ($LASTEXITCODE -ne 0) { throw 'csc failed for BattleTechUCUSetup' }
 & dotnet $csc @common -target:winexe "-win32manifest:$src\app.manifest" '-main:ReleaseGate.ManagerProgram' "-out:$bin\ReleaseManager.exe" -define:MANAGER @refs "-r:$fx\System.Web.Extensions.dll" "$src\AssemblyInfo.cs" "$src\GateCore.cs" "$src\PublicManifest.cs" "$src\Pack.cs" "$src\Volumes.cs" "$src\Remote.cs" "$src\Unlock.cs" "$src\SteamTicket.cs" "$src\Installer.cs" "$src\GitHubReleases.cs" "$src\ReleaseManager.cs"
 if ($LASTEXITCODE -ne 0) { throw 'csc failed for ReleaseManager' }
